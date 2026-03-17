@@ -47,7 +47,7 @@ def chat_with_statement(message, history, session_data):
     except Exception as e:
         return f"Error: {str(e)}"
 
-with gr.Blocks(theme=gr.themes.Soft()) as demo:
+with gr.Blocks() as demo:
     session_state = gr.State(None)
 
     gr.Markdown("# 🏦 Chat with your Bank Statement")
@@ -76,4 +76,4 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(theme=gr.themes.Soft())

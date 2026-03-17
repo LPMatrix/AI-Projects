@@ -1,4 +1,6 @@
 gradio
 pdfplumber
 openai
+openpyxl
+pandas
 python-dotenv

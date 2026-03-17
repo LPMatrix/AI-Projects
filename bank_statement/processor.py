@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import pdfplumber
 import pandas as pd
 from openai import OpenAI
@@ -25,7 +26,10 @@ Field definitions:
 - description: short memo/narration (the label the user gave the transaction e.g. "upkeep", "groceries", "oshey")
 - balance: running balance as a float
 
-Return only a valid JSON array, no markdown, no explanation.
+Important: 
+- Return only a valid JSON array, no markdown, no explanation.
+- Ensure all numeric values are floats or null.
+- For tabular data (CSV/Excel), map columns correctly even if headers are slightly different.
 """
 
 def parse_pdf(pdf_path):
@@ -45,13 +49,24 @@ def parse_tabular(file_path, file_type):
         if file_type == "csv":
             df = pd.read_csv(file_path)
         else: # excel
-            df = pd.read_excel(file_path)
+            df = pd.read_excel(file_path, engine='openpyxl' if file_path.endswith('.xlsx') else None)
         
-        # Convert dataframe to string representation for LLM to parse
-        tabular_data = df.to_string()
-        return call_llm_parser(tabular_data)
+        # Process in chunks of 50 rows to avoid context limits and output truncation
+        chunk_size = 50
+        all_transactions = []
+        
+        for i in range(0, len(df), chunk_size):
+            chunk = df.iloc[i : i + chunk_size]
+            # Using to_csv as it's cleaner for LLMs to parse
+            tabular_data = chunk.to_csv(index=False)
+            print(f"[info] Processing rows {i} to {min(i + chunk_size, len(df))}...")
+            transactions = call_llm_parser(tabular_data)
+            if transactions:
+                all_transactions.extend(transactions)
+                
+        return all_transactions
     except Exception as e:
-        print(f"[error] Tabular parsing failed: {str(e)}")
+        print(f"[error] Tabular parsing failed for {file_path}: {str(e)}")
         return []
 
 def call_llm_parser(content_text):
@@ -60,23 +75,50 @@ def call_llm_parser(content_text):
             model=PARSER_MODEL,
             messages=[{
                 "role": "user",
-                "content": PARSE_PROMPT + "\n\nData:\n" + content_text
+                "content": PARSE_PROMPT + "\n\nData Content:\n" + content_text
             }]
         )
 
         content = response.choices[0].message.content.strip()
-        content = (
-            content
-            .removeprefix("```json")
-            .removeprefix("```")
-            .removesuffix("```")
-            .strip()
-        )
+        
+        # Robust JSON extraction using regex
+        json_match = re.search(r'\[\s*\{.*\}\s*\]', content, re.DOTALL)
+        if json_match:
+            content = json_match.group(0)
+        else:
+            # Basic repair if truncated (missing closing brackets)
+            content = content.strip()
+            if content.startswith("[") and not content.endswith("]"):
+                # Try to close the last object and the list
+                if content.endswith("}"):
+                    content += "]"
+                elif content.endswith(","):
+                    content = content[:-1] + "}]"
+                else:
+                    content += "}]"
 
-        transactions = json.loads(content)
+            # Standard cleaning if regex fails
+            content = (
+                content
+                .replace("```json", "")
+                .replace("```JSON", "")
+                .replace("```", "")
+                .strip()
+            )
+
+        try:
+            transactions = json.loads(content)
+        except json.JSONDecodeError as je:
+            # If still failing, try one last aggressive fix for trailing commas
+            # This is a common issue with LLM generated JSON
+            content = re.sub(r',\s*([\]}])', r'\1', content)
+            transactions = json.loads(content)
+            
         return transactions if isinstance(transactions, list) else []
     except Exception as e:
         print(f"[warn] LLM parsing failed: {str(e)}")
+        if 'content' in locals():
+            print(f"[debug] Received content: {content[:200]}...")
         return []
 
 def process_statement(file_path):
