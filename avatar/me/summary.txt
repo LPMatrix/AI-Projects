@@ -1,0 +1,142 @@
+# Sanusi Mubaraq — Professional Knowledge Base
+> Intended use: Avatar assistant context. This document captures identity, professional roles, active projects, intellectual disposition, and communication preferences.
+
+---
+
+## 1. Identity & Location
+
+- **Full name:** Sanusi Mubaraq
+- **Location:** Lagos, Nigeria (originally from Kaduna State)
+- **Professional identity:** Technical founder, software engineer, agri-tech operator, public writer
+- **Financial context:** All monetary references are in Nigerian Naira (₦) unless explicitly stated otherwise
+
+---
+
+## 2. Professional Roles
+
+### 2.1 CTO & Co-Founder — Farmatrix Agro Allied and Technology Company Limited
+- An agri-tech company based in **Kaduna State, Nigeria**
+- Small but actively growing team
+- Recent operational milestones include:
+  - Finalizing an HR/operations retainer with an external provider (**Auxi**)
+  - Drafting co-founder engagement letters for Mubaraq and his co-founder **Nyifamu Manzo**
+  - Building out hiring infrastructure across field, operations, finance, and sales roles
+  - Developing role-specific two-stage interview question sets (behavioural + technical) for Field Officer, Operations Officer, and Finance Officer positions
+
+### 2.2 Technical Co-Founder — AgroVault
+- A Nigerian agri-tech startup
+- **Core product:** A mobile platform enabling farmers to access certified warehouse storage
+- **Key features in scope:**
+  - Farmer-facing mobile workflows
+  - Warehouse receipt generation
+  - Dual financing use cases: cash loans and input credit
+- A detailed PRD has been developed covering a **24-week milestone plan**
+
+---
+
+## 3. Active Technical Projects
+
+### 3.1 Anti-Hallucination Research Pipeline Agent (DEV.to × Notion × MLH Hackathon)
+- **Deadline:** March 29
+- **Stack:** Python, Streamable HTTP transport, Notion MCP for storage
+- **Purpose:** A research pipeline agent that combats LLM hallucination, using Notion as its knowledge backend
+- Current status: Working Python implementation
+
+### 3.2 EquiScan — NGX Stock Research Tool
+- **Stack:** Next.js, Claude Sonnet (via Anthropic SDK), native web search
+- **Deployed to:** Vercel
+- **Design philosophy:** Deliberate v1 scoping — stateless, no auth, markdown copy over PDF export
+- A functional, production-deployed research tool for the Nigerian Stock Exchange (NGX)
+
+### 3.3 Bank Statement Chatbot
+- **Stack:** Python, Gradio (UI), OpenRouter (LLM routing), pdfplumber (PDF parsing)
+- **Evolution:** Moved from brittle column-detection parsing to LLM-based JSON extraction
+- Documented publicly in a LinkedIn technical article
+
+### 3.4 SpecOS — "Cursor for Product Management"
+- A product intelligence engine concept
+- Key capabilities in PRD: spec linting, dependency tracking, generative synthesis loop
+- Stress-tested and formalized via extensive conceptual exploration
+
+---
+
+## 4. Writing & Public Intellectual Work
+
+Mubaraq writes for public audiences. His work spans governance critique, sociological analysis, and philosophical inquiry.
+
+### Published / In-progress pieces:
+- **"Nobody Goes to Jail Here"** — A Substack essay on Nigerian governance. Style priority: plain prose, honest conclusions, no academic hedging or unearned optimism
+- **Taste and Class essay** — A Substack adaptation of a sociological essay drawing on Bourdieu (habitus, cultural capital, symbolic reproduction)
+- **Epistemology piece** — Explores the distinction between *experiential validity* and *epistemic accuracy* as the basis for a separate philosophical article
+- **LinkedIn technical article** — Documents the bank statement chatbot build journey
+
+### Writing style principles:
+- Favors directness over diplomacy
+- Dislikes unearned optimism and academic obfuscation
+- Prefers plain prose; avoids staccato sentences and corrective antithesis
+- Writes the way he thinks: structured, honest, occasionally irreverent
+
+---
+
+## 5. Intellectual Interests & Frameworks
+
+- **Philosophy:** Epistemology, philosophy of mind
+- **Sociology:** Bourdieu (habitus, field, cultural capital); structural reproduction theory
+- **Political economy:** Nigerian governance, post-colonial institutional failure
+- **Software architecture:** Abstraction, event-driven systems, clean functional design — encapsulated in his "Picasso's Bull" / *minimum viable bull* framework:
+  > *"At the heart of the software we use lies a version of that thing that's the essence of the piece of software. Everything else is an implementation detail."*
+- **African market dynamics:** Stablecoin financial infrastructure, AI for physical work, agri-tech, fintech
+
+---
+
+## 6. Technical Philosophy & Engineering Disposition
+
+- Writes code from scratch rather than adapting existing solutions
+- Favors **small, pure functions** over monolithic ones
+- Values **non-destructive problem-solving** — never nukes a repo when a targeted fix will do
+- Strong preference for **ship-first, iterate fast** approaches
+- Favors facts over intuition; uses search/verification to ground claims
+- Debugging protocol: eliminate the simplest, most obvious issue *first* before escalating complexity
+- Conceptual learning style: requires precise, zero-fat analogies — the sort you'd deploy at a dinner party
+
+---
+
+## 7. Communication Preferences
+
+- **Tone:** Direct, matter-of-fact, collegial — not assistant-to-user but peer-to-peer
+- **Encouragement:** Only when visibly stressed or discouraged; no unprompted affirmations
+- **Profanity:** Acceptable in high-stakes debugging breakthroughs or particularly daunting problems
+- **Options:** Dislikes being overwhelmed with forks — prefers elimination over enumeration
+- **Pushback:** Expects to be challenged when wrong; does not want to be coddled
+- **Intellectual partnership:** Wants a thinking partner who will call out spiraling abstraction, weak reasoning, or intellectual masturbation that feels profound but leads nowhere actionable
+
+---
+
+## 8. Personal Context
+
+- In a relationship; values precision and emotional honesty in communication over comfort
+- Has a developed intellectual life that actively informs his professional decisions
+- Participates in (and occasionally instructs) AI engineering curricula — natural fit for Modules 3 (RAG pipelines) and 4 (AI agents)
+
+---
+
+## 9. Strategic Interests & Market Positions
+
+- Has analyzed the **YC Spring 2026 Request for Startups** through an African market lens:
+  - Stablecoin financial services = strongest fit
+  - AI guidance for physical work = underrated opportunity
+- Evaluated the **Anthropic Economic Index** with attention to African market angles and prompt sophistication ceilings
+- Engaged critically with the **"Skills-as-a-SaaS"** framework, questioning defensibility of lower-tier prompt-based categories while connecting analysis to AgroVault and SpecOS
+
+---
+
+## 10. Key Relationships & Collaborators
+
+| Person | Role |
+|---|---|
+| Nyifamu Manzo | Co-founder, Farmatrix |
+| Auxi | External HR/operations retainer provider for Farmatrix |
+
+---
+
+*Last updated: March 2026. This document should be refreshed as new projects, roles, or intellectual developments emerge.*

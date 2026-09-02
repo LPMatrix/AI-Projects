@@ -51,8 +51,8 @@ def parse_tabular(file_path, file_type):
         else: # excel
             df = pd.read_excel(file_path, engine='openpyxl' if file_path.endswith('.xlsx') else None)
         
-        # Process in chunks of 50 rows to avoid context limits and output truncation
-        chunk_size = 50
+        # Process in chunks of 25 rows to avoid context limits and output truncation
+        chunk_size = 25
         all_transactions = []
         
         for i in range(0, len(df), chunk_size):
@@ -73,6 +73,7 @@ def call_llm_parser(content_text):
     try:
         response = client.chat.completions.create(
             model=PARSER_MODEL,
+            max_tokens=4096,
             messages=[{
                 "role": "user",
                 "content": PARSE_PROMPT + "\n\nData Content:\n" + content_text
@@ -86,18 +87,6 @@ def call_llm_parser(content_text):
         if json_match:
             content = json_match.group(0)
         else:
-            # Basic repair if truncated (missing closing brackets)
-            content = content.strip()
-            if content.startswith("[") and not content.endswith("]"):
-                # Try to close the last object and the list
-                if content.endswith("}"):
-                    content += "]"
-                elif content.endswith(","):
-                    content = content[:-1] + "}]"
-                else:
-                    content += "}]"
-
-            # Standard cleaning if regex fails
             content = (
                 content
                 .replace("```json", "")
@@ -106,13 +95,7 @@ def call_llm_parser(content_text):
                 .strip()
             )
 
-        try:
-            transactions = json.loads(content)
-        except json.JSONDecodeError as je:
-            # If still failing, try one last aggressive fix for trailing commas
-            # This is a common issue with LLM generated JSON
-            content = re.sub(r',\s*([\]}])', r'\1', content)
-            transactions = json.loads(content)
+        transactions = json.loads(content)
             
         return transactions if isinstance(transactions, list) else []
     except Exception as e:

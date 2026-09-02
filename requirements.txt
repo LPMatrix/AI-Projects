@@ -1,0 +1,26 @@
+# Playground (launcher.py) — union of every sub-project's deps.
+# Pinned to what the local .venv runs; loosen if a host lacks a version.
+
+gradio==6.7.0
+openai==2.24.0
+python-dotenv==1.2.1
+pandas==3.0.1
+
+# avatar
+pypdf==6.7.4
+
+# bank_statement
+pdfplumber==0.11.9
+openpyxl==3.1.5
+
+# job-one-pager-gradio
+requests>=2.31
+beautifulsoup4>=4.12
+huggingface_hub>=0.24
+
+# repo_onboarding_sidekick  (not installed in the local .venv — versions are floors)
+langgraph>=0.2.0
+langchain-openai>=0.2.0
+langchain-core>=0.3.0
+pydantic>=2.12
+typing_extensions>=4.15
